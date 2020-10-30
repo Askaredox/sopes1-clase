@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+    react:
+        build: frontend/.
+        container_name: react
+        ports: 
+            - '80:80'
+        volumes:
+            - '.:/frontend/app'
+        networks: 
+            app-net:
+                ipv4_address: 172.19.0.2
+    
+    flask:
+        build: backend/.
+        container_name: flask
+        ports: 
+            - '5000:5000'
+        volumes:
+            - '.:/backend/code'
+        networks: 
+            app-net:
+                ipv4_address: 172.19.0.3
+    
+    database:
+        image: mysql:latest
+        
+        container_name: bases-db
+        ports: 
+            - '3306:3306'
+        environment: 
+            MYSQL_ROOT_PASSWORD: 12345678
+            MYSQL_DATABASE: Sopes1
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
+        volumes:
+            - database:/var/lib/mysql
+        networks: 
+            app-net:
+                ipv4_address: 172.19.0.4
+
+
+networks:
+    app-net:
+        ipam:
+            driver: default
+            config:
+            - subnet: "172.19.0.0/24"
+
+volumes:
+    database:
