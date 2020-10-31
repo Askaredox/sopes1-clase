@@ -53,12 +53,14 @@ export default class Login extends React.Component{
         this.setState({loading:true});
         let resp=null;
         try {
-            resp = await Http.login(this.state.formVal);    
+			resp = await Http.login(this.state.formVal);    
+			
         } catch (error) {
             console.log(error);
-        }
-        if(resp?.login){
-            localStorage.setItem('user','admin');
+		}
+        if(resp!=false){
+			localStorage.setItem('user',this.state.formVal.user);
+			localStorage.setItem("pwd", this.state.formVal.pwd);
             this.setState({loading:false});
             this.props.history.push('/');
         }

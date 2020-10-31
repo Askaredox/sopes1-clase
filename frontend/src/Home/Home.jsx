@@ -14,12 +14,12 @@ export default class Home extends React.Component {
 			<div>
 				<Navbar>
 					<Navbar.Header>
-						<a href="/" className="navbar-brand logo"> CPM </a>
+						<a href="/" className="navbar-brand logo">SOPES 1 GRUPO 4 </a>
 					</Navbar.Header>
 					<Navbar.Body>
 						<Nav onSelect={this.logout}>
-							<Nav.Item eventKey="1" icon={<Icon icon="detail"/>}> Consultas </Nav.Item>
-							<Nav.Item eventKey="2" icon={<Icon icon="edit"/>}> CRUD </Nav.Item>
+							<Nav.Item eventKey="1" > {localStorage.getItem("user")} </Nav.Item>
+						
 						</Nav>
 						<Nav pullRight onSelect={this.logout}>
 							<Nav.Item eventKey="3" icon={<Icon icon="sign-out"/>}> Logout </Nav.Item>

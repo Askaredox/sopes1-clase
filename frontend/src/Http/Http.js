@@ -1,9 +1,23 @@
 export default class Http {
-    static server = 'http://172.19.0.3:5000/api';
+    static server = 'http://localhost:5000';
 
     static async login(formVal) {
-        const URL = Http.server + '/login?user=' + formVal.user + '&pwd=' + formVal.pwd;
-        const response = await fetch(URL);
+        let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		headers.append('Accept', 'application/json');
+		headers.append('Access-Control-Allow-Origin', this.server);
+		headers.append('Access-Control-Allow-Credentials', 'true');
+		headers.append('GET', 'POST', 'OPTIONS');
+
+        const URL = Http.server + '/login';
+        const response = await fetch(URL, {
+            method: 'POST',
+            headers: headers,
+            body: `{
+              "user":"${formVal.user}",
+              "pwd":"${formVal.pwd}"
+               }`,
+          });
         return await response.json();
     }
     static async consulta(num){

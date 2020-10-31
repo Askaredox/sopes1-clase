@@ -12,7 +12,7 @@ app.config['MYSQL_PASSWORD'] = 'admin'
 app.config['MYSQL_DB'] = 'Sopes1'
 
 mysql = MySQL(app)
-cors = CORS(app, resources={r"/api/*": {"origin": "*"}})
+CORS(app)
 
 @app.route('/')
 def check():
@@ -30,8 +30,8 @@ def iniciarsesion():
     rv = cur.fetchall()
     for x in rv:
         if x[2]== user and x[3]==pwd:
-            return "{\"data\":\""+x[1]+"\"}"
-    return "{\"code\":\"false\"}"
+            return "+\""+x[1]+"\""
+    return "false"
 
     
 
